@@ -1,5 +1,6 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { useState } from "react";
+import { Send, ChevronDown } from "lucide-react";
 
 const ContactSection = () => {
   const { ref, visible } = useScrollReveal(0.1);
@@ -67,7 +68,7 @@ const ContactSection = () => {
                   <option>Banking Software</option>
                   <option>Custom ERP Solution</option>
                 </select>
-                <svg className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 9l6 6 6-6" /></svg>
+                <ChevronDown size={16} className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" />
               </div>
 
               <div className="md:col-span-2 relative">
@@ -94,9 +95,10 @@ const ContactSection = () => {
               <div className="md:col-span-2">
                 <button
                   type="submit"
-                  className="relative overflow-hidden w-full bg-primary text-primary-foreground font-body font-semibold text-[15px] py-4 rounded-pill shadow-card-brand shimmer-btn hover:shadow-hover-brand hover:scale-[1.01] transition-all duration-300 active:scale-[0.99]"
+                  className="relative overflow-hidden w-full inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground font-body font-semibold text-[15px] py-4 rounded-pill shadow-card-brand shimmer-btn hover:shadow-hover-brand hover:scale-[1.01] transition-all duration-300 active:scale-[0.99] group"
                 >
-                  🚀 Submit Your Project
+                  <Send size={16} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
+                  Submit Your Project
                 </button>
               </div>
             </form>
