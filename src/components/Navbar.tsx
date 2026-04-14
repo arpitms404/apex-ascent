@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Menu, X, ArrowRight } from "lucide-react";
 import logo from "@/assets/logo-skilllogic.png";
 
 const navLinks = [
@@ -6,6 +7,7 @@ const navLinks = [
   { label: "Services", href: "#services" },
   { label: "About", href: "#about" },
   { label: "Process", href: "#process" },
+  { label: "Portfolio", href: "/portfolio" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -39,7 +41,6 @@ const Navbar = () => {
             <img src={logo} alt="SkillLogic Technologies" className="h-8" />
           </a>
 
-          {/* Desktop nav */}
           <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
               <a
@@ -56,26 +57,23 @@ const Navbar = () => {
           <div className="hidden md:flex items-center gap-3">
             <a
               href="#contact"
-              className="relative overflow-hidden font-body text-sm font-semibold bg-primary text-primary-foreground px-6 py-2.5 rounded-pill shadow-card-brand shimmer-btn transition-all duration-300 hover:shadow-float-brand hover:scale-[1.02]"
+              className="relative overflow-hidden inline-flex items-center gap-2 font-body text-sm font-semibold bg-primary text-primary-foreground px-6 py-2.5 rounded-pill shadow-card-brand shimmer-btn transition-all duration-300 hover:shadow-float-brand hover:scale-[1.02] group"
             >
               Get Demo
+              <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform duration-300" />
             </a>
           </div>
 
-          {/* Mobile hamburger */}
           <button
             onClick={() => setMobileOpen(true)}
-            className="md:hidden flex flex-col gap-1.5 p-2"
+            className="md:hidden p-2 rounded-lg hover:bg-muted transition-colors"
             aria-label="Open menu"
           >
-            <span className="block w-6 h-[2px] bg-foreground rounded-full" />
-            <span className="block w-6 h-[2px] bg-foreground rounded-full" />
-            <span className="block w-4 h-[2px] bg-foreground rounded-full" />
+            <Menu size={24} className="text-foreground" />
           </button>
         </div>
       </nav>
 
-      {/* Mobile drawer */}
       {mobileOpen && (
         <div className="fixed inset-0 z-[10000]">
           <div
@@ -89,9 +87,7 @@ const Navbar = () => {
                 className="w-12 h-12 flex items-center justify-center rounded-full hover:bg-muted transition-colors"
                 aria-label="Close menu"
               >
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                  <path d="M18 6L6 18M6 6l12 12" />
-                </svg>
+                <X size={24} />
               </button>
             </div>
             <div className="flex flex-col px-8">
