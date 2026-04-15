@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Menu, X, ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
 import logo from "@/assets/logo-skilllogic.png";
 
 const navLinks = [
@@ -14,6 +15,7 @@ const navLinks = [
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [cursorPos, setCursorPos] = useState({ left: 0, width: 0, opacity: 0 });
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 80);
@@ -31,9 +33,7 @@ const Navbar = () => {
     <>
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled
-            ? "glass shadow-card-brand py-3"
-            : "bg-transparent py-5"
+          scrolled ? "glass shadow-card-brand py-3" : "bg-transparent py-5"
         }`}
       >
         <div className="container mx-auto flex items-center justify-between px-6">
@@ -41,23 +41,27 @@ const Navbar = () => {
             <img src={logo} alt="SkillLogic Technologies" className="h-8" />
           </a>
 
-          <div className="hidden md:flex items-center gap-8">
+          {/* Desktop nav with sliding cursor */}
+          <div
+            className="hidden md:flex items-center relative rounded-full border border-border/40 bg-card/50 backdrop-blur-sm p-1"
+            onMouseLeave={() => setCursorPos((p) => ({ ...p, opacity: 0 }))}
+          >
             {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="relative font-body text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-300 group"
-              >
+              <NavTab key={link.href} href={link.href} setPosition={setCursorPos}>
                 {link.label}
-                <span className="absolute bottom-[-4px] left-1/2 w-0 h-[2px] bg-primary transition-all duration-300 group-hover:w-full group-hover:left-0 rounded-full" />
-              </a>
+              </NavTab>
             ))}
+            <motion.div
+              animate={cursorPos}
+              transition={{ type: "spring", stiffness: 400, damping: 30 }}
+              className="absolute z-0 h-8 rounded-full bg-primary/10"
+            />
           </div>
 
           <div className="hidden md:flex items-center gap-3">
             <a
               href="#contact"
-              className="relative overflow-hidden inline-flex items-center gap-2 font-body text-sm font-semibold bg-primary text-primary-foreground px-6 py-2.5 rounded-pill shadow-card-brand shimmer-btn transition-all duration-300 hover:shadow-float-brand hover:scale-[1.02] group"
+              className="relative overflow-hidden inline-flex items-center gap-2 font-body text-sm font-semibold bg-primary text-primary-foreground px-6 py-2.5 rounded-full shadow-card-brand shimmer-btn transition-all duration-300 hover:shadow-float-brand hover:scale-[1.02] group"
             >
               Get Demo
               <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform duration-300" />
@@ -105,7 +109,7 @@ const Navbar = () => {
               <a
                 href="#contact"
                 onClick={() => setMobileOpen(false)}
-                className="mt-8 text-center font-body font-semibold bg-primary text-primary-foreground px-6 py-4 rounded-pill shadow-card-brand"
+                className="mt-8 text-center font-body font-semibold bg-primary text-primary-foreground px-6 py-4 rounded-full shadow-card-brand"
               >
                 Get Demo
               </a>
@@ -114,6 +118,32 @@ const Navbar = () => {
         </div>
       )}
     </>
+  );
+};
+
+const NavTab = ({
+  children,
+  setPosition,
+  href,
+}: {
+  children: React.ReactNode;
+  setPosition: (pos: { left: number; width: number; opacity: number }) => void;
+  href: string;
+}) => {
+  const ref = useRef<HTMLAnchorElement>(null);
+  return (
+    <a
+      ref={ref}
+      href={href}
+      onMouseEnter={() => {
+        if (!ref.current) return;
+        const { width } = ref.current.getBoundingClientRect();
+        setPosition({ width, opacity: 1, left: ref.current.offsetLeft });
+      }}
+      className="relative z-10 block cursor-pointer px-4 py-1.5 text-sm font-body font-medium text-muted-foreground hover:text-foreground transition-colors duration-200"
+    >
+      {children}
+    </a>
   );
 };
 
