@@ -1,6 +1,7 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { useState } from "react";
 import { Send, ChevronDown } from "lucide-react";
+import { RadialSocialMenu } from "@/components/ui/radial-social-menu";
 
 const ContactSection = () => {
   const { ref, visible } = useScrollReveal(0.1);
@@ -20,6 +21,11 @@ const ContactSection = () => {
             <p className="font-body text-muted-foreground text-lg opacity-0" style={{ animation: visible ? "fade-up 0.8s cubic-bezier(0.22,1,0.36,1) 200ms forwards" : "none" }}>
               Ready to transform your business? Tell us about your project.
             </p>
+          </div>
+
+          {/* Radial Social Menu */}
+          <div className="mb-16 opacity-0" style={{ animation: visible ? "fade-up 0.8s cubic-bezier(0.22,1,0.36,1) 250ms forwards" : "none" }}>
+            <RadialSocialMenu />
           </div>
 
           <div
@@ -95,7 +101,7 @@ const ContactSection = () => {
               <div className="md:col-span-2">
                 <button
                   type="submit"
-                  className="relative overflow-hidden w-full inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground font-body font-semibold text-[15px] py-4 rounded-pill shadow-card-brand shimmer-btn hover:shadow-hover-brand hover:scale-[1.01] transition-all duration-300 active:scale-[0.99] group"
+                  className="relative overflow-hidden w-full inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground font-body font-semibold text-[15px] py-4 rounded-full shadow-card-brand shimmer-btn hover:shadow-hover-brand hover:scale-[1.01] transition-all duration-300 active:scale-[0.99] group"
                 >
                   <Send size={16} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
                   Submit Your Project

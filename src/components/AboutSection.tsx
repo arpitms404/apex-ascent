@@ -1,5 +1,6 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { useCountUp } from "@/hooks/useCountUp";
+import { ParticleTextEffect } from "@/components/ui/particle-text-effect";
 
 const AboutSection = () => {
   const { ref, visible } = useScrollReveal(0.15);
@@ -14,31 +15,25 @@ const AboutSection = () => {
   return (
     <section id="about" className="py-24 md:py-32 bg-secondary/30" ref={ref}>
       <div className="container mx-auto px-6">
+        {/* Particle text effect */}
+        <div className="mb-16 opacity-0" style={{ animation: visible ? "fade-up 0.8s cubic-bezier(0.22,1,0.36,1) forwards" : "none" }}>
+          <ParticleTextEffect words={["SKILLLOGIC", "INNOVATION", "TECHNOLOGY", "GROWTH", "SOFTWARE"]} />
+        </div>
+
         <div className="grid lg:grid-cols-2 gap-16 items-center">
-          {/* Left - content */}
           <div>
             <span className="inline-block font-mono text-[11px] uppercase tracking-[0.15em] text-primary font-medium mb-4 opacity-0" style={{ animation: visible ? "fade-up 0.8s cubic-bezier(0.22,1,0.36,1) forwards" : "none" }}>
               About SkillLogic
             </span>
-            <h2
-              className="font-display text-display font-bold text-foreground mb-6 opacity-0"
-              style={{ animation: visible ? "fade-up 0.8s cubic-bezier(0.22,1,0.36,1) 100ms forwards" : "none" }}
-            >
+            <h2 className="font-display text-display font-bold text-foreground mb-6 opacity-0" style={{ animation: visible ? "fade-up 0.8s cubic-bezier(0.22,1,0.36,1) 100ms forwards" : "none" }}>
               Engineering Digital Solutions That <span className="text-gradient-brand">Drive Real Growth</span>
             </h2>
-            <p
-              className="font-body text-muted-foreground text-lg leading-relaxed mb-6 opacity-0"
-              style={{ animation: visible ? "fade-up 0.8s cubic-bezier(0.22,1,0.36,1) 200ms forwards" : "none" }}
-            >
+            <p className="font-body text-muted-foreground text-lg leading-relaxed mb-6 opacity-0" style={{ animation: visible ? "fade-up 0.8s cubic-bezier(0.22,1,0.36,1) 200ms forwards" : "none" }}>
               We are a premium software development company that transforms businesses through technology. Our team of expert engineers, designers, and strategists work together to build solutions that don't just work — they dominate.
             </p>
-            <p
-              className="font-body text-muted-foreground leading-relaxed mb-8 opacity-0"
-              style={{ animation: visible ? "fade-up 0.8s cubic-bezier(0.22,1,0.36,1) 300ms forwards" : "none" }}
-            >
+            <p className="font-body text-muted-foreground leading-relaxed mb-8 opacity-0" style={{ animation: visible ? "fade-up 0.8s cubic-bezier(0.22,1,0.36,1) 300ms forwards" : "none" }}>
               From healthcare to fintech, education to enterprise — we've delivered mission-critical software that processes millions of transactions and serves thousands of users daily.
             </p>
-
             <div className="grid grid-cols-2 gap-4">
               {stats.map((s, i) => (
                 <StatCard key={s.label} {...s} visible={visible} delay={i * 100 + 400} />
@@ -46,7 +41,6 @@ const AboutSection = () => {
             </div>
           </div>
 
-          {/* Right - visual */}
           <div className="relative opacity-0" style={{ animation: visible ? "fade-up 0.8s cubic-bezier(0.22,1,0.36,1) 300ms forwards" : "none" }}>
             <div className="glass rounded-3xl p-8 shadow-luxury-brand">
               <div className="space-y-4">
